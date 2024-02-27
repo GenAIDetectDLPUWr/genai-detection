@@ -1,0 +1,21 @@
+{
+    "name": "gen-ai-detection",
+    "build": {
+        "dockerfile": "./Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+          "extensions": [
+              "ms-toolsai.jupyter",
+              "ms-python.python",
+              "ms-azuretools.vscode-docker",
+              "GitHub.copilot",
+              "GitHub.copilot-chat",
+              "mhutchie.git-graph"
+          ]
+        }
+      },
+  
+      "forwardPorts": [7860],
+      "runArgs": ["--env-file",".devcontainer/devcontainer.env"]
+}
