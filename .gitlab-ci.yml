@@ -1,0 +1,9 @@
+name: GenAI Detection
+run-name: ${{ github.actor }} is testing GenAI Detection 🚀
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: pip install .
+      - run: pytest
