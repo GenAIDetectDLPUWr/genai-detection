@@ -1,7 +1,8 @@
 {
     "name": "gen-ai-detection",
     "build": {
-        "dockerfile": "./Dockerfile"
+      "context": "..",
+      "dockerfile": "../Dockerfile"
     },
     "customizations": {
         "vscode": {
