@@ -2,7 +2,7 @@ name: GenAI Detection
 run-name: ${{ github.actor }} is testing GenAI Detection 🚀
 on: [push]
 jobs:
-  Test GenAI Detection:
+  Test-GenAI-Detection:
     runs-on: ubuntu-latest
     steps:
       - run: pip install -r requirements.txt
