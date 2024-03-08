@@ -23,6 +23,7 @@ docs = [
     "ipykernel>=5.3, <7.0",
     "Jinja2<3.1.0",
     "myst-parser~=0.17.2",
+    "pyyaml"
 ]
 
 [tool.setuptools.dynamic]

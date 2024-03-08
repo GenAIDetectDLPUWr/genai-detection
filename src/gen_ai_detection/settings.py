@@ -45,3 +45,11 @@ CONFIG_LOADER_ARGS = {
 # Class that manages the Data Catalog.
 # from kedro.io import DataCatalog
 # DATA_CATALOG_CLASS = DataCatalog
+
+import yaml
+
+import os
+print(os.getcwd())
+with open("config.yaml") as f:
+    config = yaml.load(f, Loader=yaml.FullLoader)
+print(config)
