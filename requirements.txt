@@ -36,7 +36,6 @@ fastjsonschema==2.19.1
 fonttools==4.49.0
 fqdn==1.5.1
 fsspec==2024.2.0
-gen_ai_detection @ file:///workspaces/genai-detection
 gitdb==4.0.11
 GitPython==3.1.42
 graphql-core==3.2.3
