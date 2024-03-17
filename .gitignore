@@ -10,7 +10,7 @@ conf/**/*credentials*
 
 # ignore everything in the following folders
 data/**
-
+wandb/
 # except their sub-folders
 
 # also keep all .gitkeep files
