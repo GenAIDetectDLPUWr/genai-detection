@@ -14,17 +14,12 @@ jobs:
       - uses: docker/build-push-action@v4
         with:
           context: .
-          file: "Dockerfile"
+          file: "Dockerfile.test"
           tags: genai_env
           load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: false
-      - name: Run Poetry Install
-        uses: addnab/docker-run-action@v3
-        with:
-          image: genai_env:latest
-          run: poetry install --with test
       - name: Run Pytest
         uses: addnab/docker-run-action@v3
         with:
