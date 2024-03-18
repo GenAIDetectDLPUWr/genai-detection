@@ -44,8 +44,7 @@ CONFIG_LOADER_CLASS = OmegaConfigLoader
 # DATA_CATALOG_CLASS = DataCatalog
 import yaml
 
-import os
-print(os.getcwd())
 with open("config.yaml") as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
-print(config)
+
+CONFIG_VERSION = config["version"]
