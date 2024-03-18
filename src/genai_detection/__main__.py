@@ -1,5 +1,5 @@
-"""gen-ai-detection file for ensuring the package is executable
-as `gen-ai-detection` and `python -m gen_ai_detection`
+"""GenAI Detection file for ensuring the package is executable
+as `genai-detection` and `python -m genai_detection`
 """
 import importlib
 from pathlib import Path
@@ -20,7 +20,7 @@ def _find_run_command(package_name):
         if run:
             # use run command from installed plugin if it exists
             return run
-        # use run command from the framework project
+        # use run command from `kedro.framework.cli.project`
         from kedro.framework.cli.project import run
 
         return run
