@@ -24,7 +24,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: genai_env:latest
-          run: poetry install --all-optional-groups
+          run: poetry install --with test
       - name: Run Pytest
         uses: addnab/docker-run-action@v3
         with:
