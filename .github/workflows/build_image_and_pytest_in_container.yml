@@ -1,4 +1,4 @@
-name: GenAI Detection
+name: Build Image and run Pytest in Container
 run-name: ${{ github.actor }} is testing GenAI Detection 🚀
 on: [push]
 jobs:
