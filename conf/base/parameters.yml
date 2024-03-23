@@ -1,0 +1,4 @@
+# Here you can define all your kedro parameters.
+
+# You can also use the `parameters/*.yml` file to define parameters
+# for specific pipelines.

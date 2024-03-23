@@ -4,7 +4,7 @@ https://docs.kedro.org/en/stable/kedro_project_setup/settings.html."""
 
 # Instantiated project hooks.
 # For example, after creating a hooks.py and defining a ProjectHooks class there, do
-# from pandas_viz.hooks import ProjectHooks
+# from genai_detection.hooks import ProjectHooks
 
 # Hooks are executed in a Last-In-First-Out (LIFO) order.
 # HOOKS = (ProjectHooks(),)
@@ -13,30 +13,27 @@ https://docs.kedro.org/en/stable/kedro_project_setup/settings.html."""
 # DISABLE_HOOKS_FOR_PLUGINS = ("kedro-viz",)
 
 # Class that manages storing KedroSession data.
-from pathlib import Path  # noqa: E402
-
-from kedro_viz.integrations.kedro.sqlite_store import SQLiteStore  # noqa: E402
-
-SESSION_STORE_CLASS = SQLiteStore
+# from kedro.framework.session.store import BaseSessionStore
+# SESSION_STORE_CLASS = BaseSessionStore
 # Keyword arguments to pass to the `SESSION_STORE_CLASS` constructor.
-SESSION_STORE_ARGS = {"path": str(Path(__file__).parents[2])}
+# SESSION_STORE_ARGS = {
+#     "path": "./sessions"
+# }
 
 # Directory that holds configuration.
 # CONF_SOURCE = "conf"
 
 # Class that manages how configuration is loaded.
-from kedro.config import OmegaConfigLoader  # noqa: E402
+from kedro.config import OmegaConfigLoader  # noqa: import-outside-toplevel
 
 CONFIG_LOADER_CLASS = OmegaConfigLoader
 # Keyword arguments to pass to the `CONFIG_LOADER_CLASS` constructor.
-CONFIG_LOADER_ARGS = {
-      "base_env": "base",
-      "default_run_env": "local",
+# CONFIG_LOADER_ARGS = {
 #       "config_patterns": {
 #           "spark" : ["spark*/"],
 #           "parameters": ["parameters*", "parameters*/**", "**/parameters*"],
 #       }
-}
+# }
 
 # Class that manages Kedro's library components.
 # from kedro.framework.context import KedroContext
@@ -45,11 +42,9 @@ CONFIG_LOADER_ARGS = {
 # Class that manages the Data Catalog.
 # from kedro.io import DataCatalog
 # DATA_CATALOG_CLASS = DataCatalog
-
 import yaml
 
-import os
-print(os.getcwd())
 with open("config.yaml") as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
-print(config)
+
+CONFIG_VERSION = config["version"]
