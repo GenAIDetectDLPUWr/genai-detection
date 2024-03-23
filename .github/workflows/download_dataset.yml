@@ -1,0 +1,16 @@
+name: GenAI Detection
+run-name: ${{ github.actor }} is testing GenAI Detection 🚀
+on: [push]
+jobs:
+  test-download-dataset:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          pip install wandb
+      - name: Run tests/data/test_download.py
+        run: |
+          wandb login ${{ secrets.WANDB_API_KEY }}
+          python tests/data/test_download.py
