@@ -25,6 +25,8 @@ tqdm = "^4.66.2"
 torch = "^2.2.1"
 torchvision = "^0.17.1"
 torchaudio = "^2.2.1"
+wandb = "^0.16.4"
+tqdm = "^4.66.2"
 
 [tool.poetry.group.dev]
 optional = true
