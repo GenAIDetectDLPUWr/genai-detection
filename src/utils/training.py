@@ -2,6 +2,7 @@ from pathlib import Path
 
 import torch
 from torch.nn import Module
+import wandb
 from wandb.sdk.wandb_run import Run
 
 
@@ -31,7 +32,6 @@ def create_run(project_name: str, experiment_name: str, run_name: str, config: d
     ...     },
     ... )
     """
-    import wandb
     run = wandb.init(project=project_name, group=experiment_name, name=run_name, config=config)
     return run
 
