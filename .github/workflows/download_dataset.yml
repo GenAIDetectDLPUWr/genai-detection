@@ -1,5 +1,5 @@
 name: GenAI Detection
-run-name: ${{ github.actor }} is testing GenAI Detection 🚀
+run-name: ${{ github.actor }} is testing Test Dataset Download Script📁
 on: [push]
 jobs:
   test-download-dataset:
@@ -7,10 +7,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Install Poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
       - name: Install dependencies
-        run: |
-          pip install wandb
+        run: poetry install
       - name: Run tests/data/test_download.py
         run: |
-          wandb login ${{ secrets.WANDB_API_KEY }}
-          python tests/data/test_download.py
+          poetry run wandb login ${{ secrets.WANDB_API_KEY }}
+          poetry run python tests/data/test_download.py
