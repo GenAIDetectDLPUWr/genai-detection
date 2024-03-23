@@ -14,7 +14,7 @@ jobs:
       - uses: docker/build-push-action@v4
         with:
           context: .
-          file: "Dockerfil"
+          file: "Dockerfile"
           tags: genai_env
           load: true
           cache-from: type=gha
