@@ -1,2 +1,12 @@
 package:
 version: 0.1.0
+
+upload_dataset:
+  dataset_name: "stable-diffusion-laion"
+  data_path: "../data/01_raw/*tar.gz"
+
+download_dataset:
+  artifact_id: "stable-diffusion-laion:v2"
+
+test_download:
+  artifact_id: "test:v0"

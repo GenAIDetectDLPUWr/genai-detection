@@ -3,11 +3,15 @@ import shutil
 import tarfile
 
 import wandb
+import yaml
 
 if __name__ == "__main__":
+    with open("config.yaml") as f:
+        config = yaml.load(f, Loader=yaml.FullLoader)
+
     # Download from w&b
     run = wandb.init()
-    artifact_id = 'stable-diffusion-laion:v2'
+    artifact_id = config['download_dataset']['artifact_id']
     artifact = run.use_artifact(f'genai-detectio/dataset/{artifact_id}', type='dataset')
     artifact_dir = artifact.download()
     wandb.finish()

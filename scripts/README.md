@@ -13,7 +13,7 @@ wandb login
 ### add_to_wnb.py
 Scrpit for adding dataset to w&b 
 ```bash
-python scripts/add_to_wnb.py
+python scripts/upload_dataset.py
 ```
 
 ### upload_dataset.py
