@@ -8,7 +8,9 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Remove unnecesary files from the machine
+      - name: Maximize build disk space
+        uses: easimon/maximize-build-space@v10
+      - name: Remove unnecesary files from the opt directory
         run: rm -rf /opt/hostedtoolcache
       - name: Check out repository code
         uses: actions/checkout@v4        
