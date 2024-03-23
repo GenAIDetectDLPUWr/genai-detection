@@ -20,6 +20,8 @@ readme = "README.md"
 python = ">=3.8.1"
 kedro = "^0.19.3"
 kedro-datasets = {version="^1.0.0", extras=["pandas.CSVDataset"]}
+wandb = "^0.16.4"
+tqdm = "^4.66.2"
 
 [tool.poetry.group.dev]
 optional = true
