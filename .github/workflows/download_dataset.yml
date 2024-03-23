@@ -1,5 +1,5 @@
 name: GenAI Detection
-run-name: ${{ github.actor }} is testing GenAI Detection 🚀
+run-name: ${{ github.actor }} is testing Test Dataset Download Script📁
 on: [push]
 jobs:
   test-download-dataset:
