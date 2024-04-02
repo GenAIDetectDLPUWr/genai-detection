@@ -15,6 +15,7 @@ class ImageFolderDataset(AbstractDataset[ImageFolder, ImageFolder]):
         """
         self.filepath = filepath
         self.transfortm = transform
+        self.dataset = ImageFolder(root=self.filepath)
 
 
     def _load(self) -> ImageFolder:
@@ -23,8 +24,7 @@ class ImageFolderDataset(AbstractDataset[ImageFolder, ImageFolder]):
         Returns:
             Data from the image file as a Pytorch ImageFolder dataset
         """
-        dataset = ImageFolder(root=self.filepath)
-        return dataset
+        return self.dataset
 
     def _save(self, data: ImageFolder) -> None:
             """Saves image data to the specified filepath."""
@@ -32,4 +32,4 @@ class ImageFolderDataset(AbstractDataset[ImageFolder, ImageFolder]):
 
     def _describe(self) -> Dict[str, Any]:
         """Returns a dict that describes the attributes of the dataset."""
-        return dict(filepath=self.filepath)
+        return dict(filepath=self.filepath, classes=self.dataset.classes)
