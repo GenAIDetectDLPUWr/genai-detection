@@ -1,4 +1,4 @@
-package:
+package: genai_detection
 version: 0.1.0
 name: GenAI Detection
 description: A Python package for detecting AI-generated images and videos.
@@ -12,3 +12,10 @@ download_dataset:
 
 test_download:
   artifact_id: "test:v0"
+
+train_config:
+  epochs: 10
+  batch_size: 32
+  learning_rate: 0.001
+  model_name: "resnet18"
+  momentum: 0.9

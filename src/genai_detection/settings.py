@@ -63,3 +63,5 @@ def seed_everything(seed: int):
     torch.backends.cudnn.benchmark = False 
 
 seed_everything(config["seed"])
+
+TRAIN_CONFIG = config["train_config"]

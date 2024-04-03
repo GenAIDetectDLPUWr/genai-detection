@@ -4,6 +4,8 @@ from kedro.pipeline import Pipeline, pipeline, node
 from torchvision import transforms, models
 import torch
 
+from genai_detection.settings import TRAIN_CONFIG
+
 LOGGER = logging.getLogger(__name__)
 
 def transform_raw_image_data(raw_image_dataset):
@@ -23,7 +25,7 @@ preprocess_raw_image_data_node = node(
             )
 
 def get_model():
-    model = models.resnet18(weights=True)
+    model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
     for param in model.parameters():
         param.requires_grad = False
     num_features = model.fc.in_features
@@ -38,12 +40,16 @@ model_initialization_node = node(
 )
 
 def train_model(model, dataset):
-    batch_size = 4
+    batch_size = TRAIN_CONFIG["batch_size"]
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True)
-    for epoch in range(2):
+    for epoch in range(TRAIN_CONFIG["epochs"]):
         for i, data in enumerate(dataloader, 0):
             inputs, labels = data
-            optimizer = torch.optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
+            optimizer = torch.optim.SGD(
+                model.parameters(),
+                lr=TRAIN_CONFIG["learning_rate"],
+                momentum=TRAIN_CONFIG["momentum"],
+                )
             optimizer.zero_grad()
             outputs = torch.sigmoid(model(inputs))
             loss_fn = torch.nn.BCELoss()
