@@ -5,6 +5,7 @@ from torchvision import transforms, models
 import torch
 
 from genai_detection.settings import TRAIN_CONFIG
+from genai_detection.utils import create_run
 
 LOGGER = logging.getLogger(__name__)
 
@@ -24,13 +25,29 @@ preprocess_raw_image_data_node = node(
                 name="raw_image_data_preprocessing",
             )
 
+
+def load_config():
+    """Load the training configuration."""
+    return TRAIN_CONFIG
+
+
+load_config_node = node(
+                func=load_config,
+                inputs=None,
+                outputs="config",
+                name="config_loading",
+)
+
+
 def get_model():
+    """Get a pre-trained ResNet18 model with the final layer replaced for binary classification."""
     model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
     for param in model.parameters():
         param.requires_grad = False
     num_features = model.fc.in_features
     model.fc = torch.nn.Linear(num_features, 1)
     return model
+
 
 model_initialization_node = node(
                 func=get_model,
@@ -39,16 +56,34 @@ model_initialization_node = node(
                 name="model_initialization",
 )
 
-def train_model(model, dataset):
-    batch_size = TRAIN_CONFIG["batch_size"]
+
+def initialize_wandb_run(config):
+    """Initialize a W&B run."""
+    return create_run(
+        project="genai-detection",
+        config=config,
+    )
+
+
+initialize_wandb_run_node = node(
+                func=initialize_wandb_run,
+                inputs="config",
+                outputs="wandb_run",
+                name="wandb_run_initialization",
+)
+
+
+def train_model(model, dataset, config):
+    """Train the model on the given dataset based on config yaml."""
+    batch_size = config["batch_size"]
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True)
-    for epoch in range(TRAIN_CONFIG["epochs"]):
+    for epoch in range(config["epochs"]):
         for i, data in enumerate(dataloader, 0):
             inputs, labels = data
             optimizer = torch.optim.SGD(
                 model.parameters(),
-                lr=TRAIN_CONFIG["learning_rate"],
-                momentum=TRAIN_CONFIG["momentum"],
+                lr=config["learning_rate"],
+                momentum=config["momentum"],
                 )
             optimizer.zero_grad()
             outputs = torch.sigmoid(model(inputs))
