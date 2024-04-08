@@ -1,13 +1,12 @@
-import logging
 from kedro.pipeline import Pipeline, pipeline, node
 
 from torchvision import transforms, models
 import torch
 
 from genai_detection.settings import TRAIN_CONFIG
-from genai_detection.utils import create_run
+from utils.training import create_run, log_metrics, save_checkpoint
 
-LOGGER = logging.getLogger(__name__)
+from datetime import datetime
 
 def transform_raw_image_data(raw_image_dataset):
     """Preprocess raw image data."""
@@ -17,6 +16,7 @@ def transform_raw_image_data(raw_image_dataset):
     ])
     raw_image_dataset.transform = transformation
     return raw_image_dataset
+
 
 preprocess_raw_image_data_node = node(
                 func=transform_raw_image_data,
@@ -60,7 +60,7 @@ model_initialization_node = node(
 def initialize_wandb_run(config):
     """Initialize a W&B run."""
     return create_run(
-        project="genai-detection",
+        project_name="genai-detection",
         config=config,
     )
 
@@ -73,7 +73,7 @@ initialize_wandb_run_node = node(
 )
 
 
-def train_model(model, dataset, config):
+def train_model(model, dataset, config, wandb_run):
     """Train the model on the given dataset based on config yaml."""
     batch_size = config["batch_size"]
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True)
@@ -91,13 +91,31 @@ def train_model(model, dataset, config):
             loss = loss_fn(outputs, labels.reshape(-1, 1).to(torch.float))
             loss.backward()
             optimizer.step()
-            LOGGER.info(f"Epoch: {epoch}, Loss: {loss.item()}")
+            log_metrics(wandb_run,
+                        {
+                            "loss": loss.item(),
+                            "epoch": epoch,
+                        },
+                        step=(epoch+1)*(i+1))
 
     return model
 
+
 train_model_node = node(
                 func=train_model,
-                inputs=["model", "preprocessed_data"],
+                inputs=["model", "preprocessed_data", "config", "wandb_run"],
                 outputs="trained_model",
                 name="model_training",
+)
+
+
+def save_and_upload_model(model, wandb_run, config) -> None:
+    """Save the trained model and upload it to W&B."""
+    save_checkpoint(wandb_run, model, f"{config['model_name']}_{wandb_run.name}_{datetime.now().strftime('%Y-%m-%d')}")
+
+save_and_upload_model_node = node(
+                func=save_and_upload_model,
+                inputs=["trained_model", "wandb_run", "config"],
+                outputs=None,
+                name="model_saving_and_uploading",
 )
