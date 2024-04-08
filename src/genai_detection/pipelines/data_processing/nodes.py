@@ -59,10 +59,7 @@ model_initialization_node = node(
 
 def initialize_wandb_run(config):
     """Initialize a W&B run."""
-    return create_run(
-        project_name="genai-detection",
-        config=config,
-    )
+    return create_run(config=config)
 
 
 initialize_wandb_run_node = node(
@@ -111,7 +108,7 @@ train_model_node = node(
 
 def save_and_upload_model(model, wandb_run, config) -> None:
     """Save the trained model and upload it to W&B."""
-    save_checkpoint(wandb_run, model, f"{config['model_name']}_{wandb_run.name}_{datetime.now().strftime('%Y-%m-%d')}")
+    save_checkpoint(wandb_run, model, config['model_name'])
 
 save_and_upload_model_node = node(
                 func=save_and_upload_model,

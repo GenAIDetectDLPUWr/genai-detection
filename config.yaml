@@ -19,3 +19,7 @@ train_config:
   learning_rate: 0.001
   model_name: "resnet18"
   momentum: 0.9
+
+wandb_config:
+  entity: genai-detectio
+  project: genai-detection

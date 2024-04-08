@@ -6,8 +6,10 @@ from torch.nn import Module
 import wandb
 from wandb.sdk.wandb_run import Run
 
+from genai_detection.settings import WANDB_CONFIG
 
-def create_run(project_name: str, config: dict, experiment_name: Optional[str] = '', run_name: Optional[str] = '') -> Run:
+
+def create_run(config: dict) -> Run:
     """
     Creates a new run on the Weights & Biases service.
 
@@ -34,13 +36,10 @@ def create_run(project_name: str, config: dict, experiment_name: Optional[str] =
     ... )
     """
     init_params = {
-        "project": project_name,
+        "entity": WANDB_CONFIG["entity"],
+        "project": WANDB_CONFIG["project"],
         "config": config,
     }
-    if run_name:
-        init_params["run_name"] = run_name
-    if experiment_name:
-        init_params["experiment_name"] = experiment_name
     run = wandb.init(**init_params)
     return run
 

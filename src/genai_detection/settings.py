@@ -65,3 +65,5 @@ def seed_everything(seed: int):
 seed_everything(config["seed"])
 
 TRAIN_CONFIG = config["train_config"]
+
+WANDB_CONFIG = config["wandb_config"]
