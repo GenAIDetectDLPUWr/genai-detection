@@ -6,7 +6,7 @@ from torch.nn import Module
 import wandb
 from wandb.sdk.wandb_run import Run
 
-from genai_detection.settings import WANDB_CONFIG
+from genai_detection.settings import WANDB_CONFIG, TRAIN_CONFIG
 
 
 def create_run(config: dict) -> Run:
@@ -71,8 +71,7 @@ def save_checkpoint(run: Run, model: Module, model_name: str):
     dir_path.mkdir(parents=True, exist_ok=True)
     model_path = dir_path / f'{model_name}.pt'
     torch.save(model.state_dict(), model_path)
-    run.log_artifact(model_path, type="model")
-
+    run.link_model(path=model_path, registered_model_name=TRAIN_CONFIG["model_name"])
 
 def download_checkpoint(run: Run, model_name: str):
     """
