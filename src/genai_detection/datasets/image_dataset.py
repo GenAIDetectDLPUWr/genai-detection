@@ -14,7 +14,7 @@ class ImageFolderDataset(AbstractDataset[ImageFolder, ImageFolder]):
             filepath: The location of the image folder to load.
         """
         self.filepath = filepath
-        self.transfortm = transform
+        self.transform = transform
         self.dataset = ImageFolder(root=self.filepath)
 
 
