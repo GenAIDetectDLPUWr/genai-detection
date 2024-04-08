@@ -32,7 +32,7 @@ if __name__ == "__main__":
             os.remove(os.path.join(dir_name, filename))
 
     # move to data folder
-    data_test_dir = "tests/data/"
+    data_test_dir = "tests/data/test_dataset"
     for folder_name in ["0", "1"]:
         source_folder = os.path.join(dir_name, folder_name)
         if os.path.isdir(source_folder):
