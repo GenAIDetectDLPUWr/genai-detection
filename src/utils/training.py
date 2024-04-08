@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Optional
 
 import torch
 from torch.nn import Module
@@ -6,14 +7,14 @@ import wandb
 from wandb.sdk.wandb_run import Run
 
 
-def create_run(project_name: str, experiment_name: str, run_name: str, config: dict) -> Run:
+def create_run(project_name: str, experiment_name: Optional[str], run_name: Optional[str], config: dict) -> Run:
     """
     Creates a new run on the Weights & Biases service.
 
     Parameters:
     project_name (str): The name of the project.
     experiment_name (str): The name of the experiment.
-    run_name (str): The name of the run.
+    run_name (Optional[str]): The name of the run.
     config (dict): The configuration parameters for the run.
 
     Returns:
@@ -32,7 +33,15 @@ def create_run(project_name: str, experiment_name: str, run_name: str, config: d
     ...     },
     ... )
     """
-    run = wandb.init(project=project_name, group=experiment_name, name=run_name, config=config)
+    init_params = {
+        "project": project_name,
+        "config": config,
+    }
+    if run_name:
+        init_params["run_name"] = run_name
+    if experiment_name:
+        init_params["experiment_name"] = experiment_name
+    run = wandb.init(**init_params)
     return run
 
 
