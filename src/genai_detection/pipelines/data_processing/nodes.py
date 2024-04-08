@@ -106,13 +106,24 @@ train_model_node = node(
 )
 
 
-def save_and_upload_model(model, wandb_run, config) -> None:
+def save_and_upload_model(model, wandb_run, config):
     """Save the trained model and upload it to W&B."""
     save_checkpoint(wandb_run, model, config['model_name'])
+    return wandb_run
 
 save_and_upload_model_node = node(
                 func=save_and_upload_model,
                 inputs=["trained_model", "wandb_run", "config"],
-                outputs=None,
+                outputs="finished_wandb_run",
                 name="model_saving_and_uploading",
+)
+
+def finish_wandb_run(wandb_run) -> None:
+    wandb_run.finish()
+
+finish_wandb_run_node = node(
+                func=finish_wandb_run,
+                inputs="finished_wandb_run",
+                outputs=None,
+                name="wandb_run_finishing",
 )

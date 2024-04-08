@@ -5,7 +5,8 @@ from genai_detection.pipelines.data_processing.nodes import (
     train_model_node,
     load_config_node,
     initialize_wandb_run_node,
-    save_and_upload_model_node
+    save_and_upload_model_node,
+    finish_wandb_run_node,
 )
 
 
@@ -18,6 +19,7 @@ def create_pipeline(**kwargs) -> Pipeline:
             model_initialization_node,
             train_model_node,
             save_and_upload_model_node,
+            finish_wandb_run_node,
         ],
         inputs=None,
         outputs=None,
