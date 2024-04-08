@@ -7,7 +7,7 @@ import wandb
 from wandb.sdk.wandb_run import Run
 
 
-def create_run(project_name: str, experiment_name: Optional[str], run_name: Optional[str], config: dict) -> Run:
+def create_run(project_name: str, config: dict, experiment_name: Optional[str] = '', run_name: Optional[str] = '') -> Run:
     """
     Creates a new run on the Weights & Biases service.
 
