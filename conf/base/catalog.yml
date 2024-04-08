@@ -42,6 +42,10 @@
 # This is a data set used by the "Hello World" example pipeline provided with the project
 # template. Please feel free to remove it once you remove the example pipeline.
 
-image_test_data:
+image_train_data:
   type: genai_detection.datasets.image_dataset.ImageFolderDataset
   filepath: data/01_raw/
+
+image_test_data:
+  type: genai_detection.datasets.image_dataset.ImageFolderDataset
+  filepath: tests/data/test_dataset/
