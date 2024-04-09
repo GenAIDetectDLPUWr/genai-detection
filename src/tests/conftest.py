@@ -21,3 +21,16 @@ def project_context(config_loader):
         hook_manager=_create_hook_manager(),
         env='local'
     )
+
+from torchvision.datasets import ImageFolder
+from torchvision import transforms
+
+@pytest.fixture
+def test_image_folder():
+    return ImageFolder(
+        root="src/tests/data/test_dataset",
+        transform=transforms.Compose([
+            transforms.Resize((256, 256)),
+            transforms.ToTensor(),
+        ])
+    )
