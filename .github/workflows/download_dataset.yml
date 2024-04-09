@@ -1,4 +1,4 @@
-name: GenAI Detection
+name: Download test dataset
 run-name: ${{ github.actor }} is testing Test Dataset Download Script📁
 on: [push]
 jobs:
