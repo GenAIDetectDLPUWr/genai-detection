@@ -17,6 +17,6 @@ jobs:
       - name: Run tests/data/test_download.py
         run: |
           poetry run wandb login ${{ secrets.WANDB_API_KEY }}
-          poetry run python tests/data/test_download.py
+          poetry run python src/tests/data/test_download.py
       - name: Run Pytest
         run: poetry run pytest 
