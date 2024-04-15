@@ -26,6 +26,7 @@ torch = "^2.2.1"
 torchvision = "^0.17.1"
 torchaudio = "^2.2.1"
 kedro-viz = "^8.0.1"
+gradio = "^4.26.0"
 
 [tool.poetry.group.dev]
 optional = true
