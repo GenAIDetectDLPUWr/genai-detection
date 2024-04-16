@@ -13,7 +13,7 @@ AI generated:
 
 ## Docker Image and dependencies
 
-The project is meant to be run in a Docker container based on the supplied Dockerfilde. Dependecies are manged by poetry and are installed during the Docker image build process. For testing run the following command:
+The project is meant to be run in a Docker container based on the supplied Dockerfile. Dependecies are manged by poetry and are installed during the Docker image build process. For testing run the following command:
 
 ```
 poetry install --with test
