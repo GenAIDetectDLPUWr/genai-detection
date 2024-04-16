@@ -48,4 +48,4 @@ image_train_data:
 
 image_test_data:
   type: genai_detection.datasets.image_dataset.ImageFolderDataset
-  filepath: tests/data/test_dataset/
+  filepath: src/tests/data/test_dataset/
