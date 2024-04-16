@@ -11,4 +11,4 @@ from kedro.framework.hooks import _create_hook_manager
 # functionality
 class TestProjectContext:
     def test_project_path(self, project_context):
-        assert True
+        assert project_context.project_path == Path.cwd()
