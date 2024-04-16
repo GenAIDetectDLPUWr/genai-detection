@@ -5,7 +5,7 @@ import torch
 
 from genai_detection.settings import TRAIN_CONFIG
 from utils.training import create_run, log_metrics, save_checkpoint
-from genai_detection.utils import create_run
+from utils.training import create_run
 
 from datetime import datetime
 
