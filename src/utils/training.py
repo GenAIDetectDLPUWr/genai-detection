@@ -1,19 +1,22 @@
 from pathlib import Path
+from typing import Optional
 
 import torch
 from torch.nn import Module
 import wandb
 from wandb.sdk.wandb_run import Run
 
+from genai_detection.settings import WANDB_CONFIG, TRAIN_CONFIG
 
-def create_run(project_name: str, experiment_name: str, run_name: str, config: dict) -> Run:
+
+def create_run(config: dict) -> Run:
     """
     Creates a new run on the Weights & Biases service.
 
     Parameters:
     project_name (str): The name of the project.
     experiment_name (str): The name of the experiment.
-    run_name (str): The name of the run.
+    run_name (Optional[str]): The name of the run.
     config (dict): The configuration parameters for the run.
 
     Returns:
@@ -32,7 +35,12 @@ def create_run(project_name: str, experiment_name: str, run_name: str, config: d
     ...     },
     ... )
     """
-    run = wandb.init(project=project_name, group=experiment_name, name=run_name, config=config)
+    init_params = {
+        "entity": WANDB_CONFIG["entity"],
+        "project": WANDB_CONFIG["project"],
+        "config": config,
+    }
+    run = wandb.init(**init_params)
     return run
 
 
@@ -63,8 +71,7 @@ def save_checkpoint(run: Run, model: Module, model_name: str):
     dir_path.mkdir(parents=True, exist_ok=True)
     model_path = dir_path / f'{model_name}.pt'
     torch.save(model.state_dict(), model_path)
-    run.log_artifact(model_path, type="model")
-
+    run.link_model(path=model_path, registered_model_name=TRAIN_CONFIG["model_name"])
 
 def download_checkpoint(run: Run, model_name: str):
     """
