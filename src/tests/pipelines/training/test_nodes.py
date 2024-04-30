@@ -1,4 +1,4 @@
-from genai_detection.pipelines.data_processing.nodes import transform_raw_image_data, get_model
+from genai_detection.pipelines.training.nodes import transform_raw_image_data, get_model
 from torchvision import transforms, models
 from torchvision.datasets import ImageFolder
 import torch

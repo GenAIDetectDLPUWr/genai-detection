@@ -156,3 +156,6 @@ venv.bak/
 .telemetry
 session_store.db
 stats.json
+
+# archives
+*.tar.gz
