@@ -23,3 +23,9 @@ train_config:
 wandb_config:
   entity: genai-detectio
   project: genai-detection
+
+evaluation_config:
+  batch_size: 32
+  num_workers: 4
+  model_name: "resnet18"
+  model_path: "models"
