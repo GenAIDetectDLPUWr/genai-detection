@@ -70,7 +70,7 @@ def save_checkpoint(run: Run, model: Module, model_name: str):
     dir_path = Path("models")
     dir_path.mkdir(parents=True, exist_ok=True)
     model_path = dir_path / f'{model_name}.pt'
-    torch.save(model.state_dict(), model_path)
+    torch.save(model, model_path)
     run.link_model(path=model_path, registered_model_name=TRAIN_CONFIG["model_name"])
 
 def download_checkpoint(run: Run, model_name: str):
