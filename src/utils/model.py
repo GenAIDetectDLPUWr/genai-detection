@@ -1,4 +1,4 @@
-'''Utilities for model download and loading'''
+"""Utilities for model download and loading"""
 
 import wandb
 from wandb.sdk.wandb_run import Run
@@ -8,8 +8,8 @@ import torch
 import numpy as np
 from torchvision import models, transforms
 
-from training import create_run
-from config import API_CONFIG
+from utils.training import create_run
+from utils.config import API_CONFIG
 
 def download_model_from_reqistry(run: Run, model_name: str, version: str = "latest", overwrite: bool = False):
     """
@@ -55,3 +55,5 @@ def model_inference(model, image_array: np.ndarray):
     prediction = torch.sigmoid(logit)
 
     return {"prediction": prediction.item()}
+
+model_inference(load_model(download_model_from_reqistry(create_run({"goal": "download_model"}), API_CONFIG["model_name"])), np.random.rand(3, 224, 224))

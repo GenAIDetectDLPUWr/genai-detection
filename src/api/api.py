@@ -2,9 +2,9 @@ from fastapi import FastAPI, UploadFile, File
 from PIL import Image
 import numpy as np
 
-from src.utils.model import download_model_from_reqistry, load_model
-from src.utils.training import create_run
-from src.utils.config import API_CONFIG
+from utils.model import download_model_from_reqistry, load_model
+from utils.training import create_run
+from utils.config import API_CONFIG
 
 app = FastAPI()
 
