@@ -24,3 +24,6 @@ COPY poetry.lock pyproject.toml ./
 RUN poetry install
 
 COPY . .
+
+ENTRYPOINT [ "poetry", "run", "kedro", "run" ]
+
