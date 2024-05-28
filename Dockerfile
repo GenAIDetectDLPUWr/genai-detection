@@ -25,5 +25,5 @@ RUN poetry install
 
 COPY . .
 
-ENTRYPOINT [ "poetry", "run", "kedro", "run" ]
+ENTRYPOINT [ "kedro", "run" ]
 
