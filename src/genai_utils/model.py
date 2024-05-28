@@ -9,7 +9,19 @@ import numpy as np
 from torchvision import models, transforms
 
 from genai_utils.training import create_run
-from genai_utils.config import API_CONFIG
+from genai_utils.config import 
+
+class GenAIDetectorModel(torch.nn.Module):
+    def __init__(self):
+        model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
+        for param in model.parameters():
+            param.requires_grad = False
+        num_features = model.fc.in_features
+        model.fc = torch.nn.Linear(num_features, 1)
+        self.model = model
+
+    def forward(self, x):
+        return self.model(x)
 
 def download_model_from_reqistry(run: Run, model_name: str, version: str = "latest", overwrite: bool = False):
     """
@@ -41,7 +53,8 @@ def load_model(model_path: str):
     model_path (str): The path to the model file.
     """
     # Consider dynamic class typing
-    model = torch.load(model_path)
+    model = GenAIDetectorModel()
+    model.load_state_dict(torch.load(model_path))
     return model
 
 def model_inference(model, image_array: np.ndarray):
