@@ -4,8 +4,7 @@ from torchvision import transforms, models
 import torch
 
 from genai_detection.settings import TRAIN_CONFIG
-from utils.training import create_run, log_metrics, save_checkpoint
-from utils.training import create_run
+from genai_utils.training import create_run, log_metrics, save_checkpoint
 
 from datetime import datetime
 

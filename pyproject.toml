@@ -9,9 +9,12 @@ kedro_init_version = "0.19.3"
 
 [tool.poetry]
 name = "GenAI Detection"
-# Here you can change the config for project version
-version = "0.1.0" # remember to descritbe the changes in the CHANGELOG.md
+version = "0.1.0"
 description = "Detection of AI Generated Images"
+packages = [
+    {include = "genai_detection", from = "src"},
+    {include = "genai_utils", from = "src"}
+]
 authors = ["Paweł Grabiński"]
 license = "MIT"
 readme = "README.md"

@@ -8,8 +8,8 @@ import torch
 import numpy as np
 from torchvision import models, transforms
 
-from utils.training import create_run
-from utils.config import API_CONFIG
+from genai_utils.training import create_run
+from genai_utils.config import API_CONFIG
 
 def download_model_from_reqistry(run: Run, model_name: str, version: str = "latest", overwrite: bool = False):
     """
@@ -41,19 +41,14 @@ def load_model(model_path: str):
     model_path (str): The path to the model file.
     """
     # Consider dynamic class typing
-    model = models.resnet18()
-    for param in model.parameters():
-        param.requires_grad = False
-    num_features = model.fc.in_features
-    model.fc = torch.nn.Linear(num_features, 1)
-    model.load_state_dict(torch.load(model_path))
+    model = torch.load(model_path)
     return model
 
 def model_inference(model, image_array: np.ndarray):
     model.eval()
-    logit = model(image_array)
-    prediction = torch.sigmoid(logit)
-
-    return {"prediction": prediction.item()}
+    with torch.no_grad():
+        outputs = model(image_array)
+        preds = torch.sigmoid(outputs) > 0.5
+    return preds.cpu().numpy().tolist()
 
 model_inference(load_model(download_model_from_reqistry(create_run({"goal": "download_model"}), API_CONFIG["model_name"])), np.random.rand(3, 224, 224))
