@@ -32,19 +32,25 @@ docker pull kabanosk/deep-learning-project
 ```
 
 ## Usage
-To run the Docker container run the following command:
+To run the training and evaluation pipeline, you need to run the Docker container with the following command
 
 ```
-docker run -it --name dlp deep-learning-project
-```
-then go to this container
-```
-docker exec -it dlp bash
+# training
+docker run -v ./data:/data --env WANDB_API_KEY=<WANDB_API_KEY> deep-learning-project --pipeline training
+
+# evaluation
+docker run -v ./data:/data --env WANDB_API_KEY=<WANDB_API_KEY> deep-learning-project --pipeline evaluation
 ```
 
 ### Kedro 
 
-You can run Kedro project with:
+If you want to run Kedro manualy, you can run:
+
+```
+docker run -v ./data:/data --expose 4242 -it --entrypoint /bin/bash deep-learning-project
+```
+
+Then you can run Kedro commands:
 
 ```
 kedro run
@@ -53,28 +59,14 @@ kedro run
 To visualize project run: 
 
 ```
-kedro viz run
+poetry install --with dev
+kedro viz run --port 4242
 ```
 
-### Training
-You can run training pipeline using command:
-
-```
-kedro run --pipeline training
-```
-
-### Evaluation
-You can run evaluation pipeline using command:
-
-```
-kedro run --pipeline evaluation
-```
+Then you can open browser and go to `http://localhost:4242/`
 
 ## API
 To run API see: [API](src/api/README.md)
-
-## Contributing
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for more details.
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
