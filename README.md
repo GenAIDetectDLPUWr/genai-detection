@@ -59,6 +59,7 @@ kedro run
 To visualize project run: 
 
 ```
+poetry install --with dev
 kedro viz run --port 4242
 ```
 
