@@ -35,6 +35,7 @@ There are other Dockerfiles in the `environments` directory that can be used to 
 * `Dockerfile.kedro` - image with entrypoint `kedro run`
 * `Dockerfile.api` - image with api and gradio dependecy group
 * `Dockerfile.test` - image with test dependecy group
+* `Dockerfile` - image with dev dependecy group
 
 
 ## Usage
