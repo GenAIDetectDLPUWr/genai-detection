@@ -5,6 +5,7 @@ import torch
 
 from genai_detection.settings import EVALUATION_CONFIG
 from utils.training import create_run, log_metrics
+from utils.model import load_model
 
 from pathlib import Path
 
@@ -29,7 +30,7 @@ preprocess_raw_image_data_node = node(
 def get_model():
     """Get the trained ResNet18 model with the final layer replaced for binary classification."""
     model_path = Path(EVALUATION_CONFIG["model_path"]) / f'{EVALUATION_CONFIG["model_name"]}.pt'
-    model = torch.load(model_path)
+    model = load_model(model_path)
     return model
 
 

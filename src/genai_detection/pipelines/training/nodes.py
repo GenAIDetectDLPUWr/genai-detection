@@ -5,7 +5,7 @@ import torch
 
 from genai_detection.settings import TRAIN_CONFIG
 from utils.training import create_run, log_metrics, save_checkpoint
-from utils.model import GenAIDetectorModel
+from utils.model import define_model
 
 from datetime import datetime
 
@@ -42,7 +42,7 @@ load_config_node = node(
 
 def get_model():
     """Get a pre-trained ResNet18 model with the final layer replaced for binary classification."""
-    model = GenAIDetectorModel()
+    model = define_model()
     return model
 
 
