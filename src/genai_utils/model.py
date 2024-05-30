@@ -21,7 +21,7 @@ def define_model():
     return model
 
 
-def download_model_from_reqistry(run: Run, model_name: str, version: str = "latest", overwrite: bool = False):
+def download_model_from_reqistry(model_name: str, version: str = "latest", overwrite: bool = False):
     """
     Downloads the model's state dict from the Weights & Biases service and loads it into the model.
 
@@ -32,14 +32,18 @@ def download_model_from_reqistry(run: Run, model_name: str, version: str = "late
     overwrite (bool): If True, the model file will be overwritten if it already exists. Defaults to False.
     """
 
+
+
     destination_path = Path(API_CONFIG["model_path"]) / f"{model_name}.pt"
 
     if not overwrite and destination_path.exists():
         # Possibly change to a logger
         print(f"File already exists at {destination_path}")
     else:
+        run = create_run({"goal": "download_model"})
         downloaded_model_path = Path(run.use_model(name=f"{model_name}:{version}"))
         os.rename(downloaded_model_path, destination_path)
+        run.finish()
 
     return destination_path
 
@@ -62,4 +66,4 @@ def model_inference(model, image_array: np.ndarray):
         preds = torch.sigmoid(outputs) > 0.5
     return preds.cpu().numpy().tolist()
 
-model_inference(load_model(download_model_from_reqistry(create_run({"goal": "download_model"}), API_CONFIG["model_name"])), np.random.rand(3, 224, 224))
+load_model(download_model_from_reqistry(API_CONFIG["model_name"]))
