@@ -4,7 +4,7 @@ from torchvision import transforms, models
 import torch
 
 from genai_detection.settings import EVALUATION_CONFIG
-from genai_utils.training import create_run, log_metrics
+from utils.training import create_run, log_metrics
 
 from pathlib import Path
 

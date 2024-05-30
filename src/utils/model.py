@@ -8,8 +8,8 @@ import torch
 import numpy as np
 from torchvision import models, transforms
 
-from genai_utils.training import create_run
-from genai_utils.config import API_CONFIG
+from utils.training import create_run
+from utils.config import API_CONFIG
 
 
 def define_model():
@@ -64,6 +64,7 @@ def model_inference(model, image_array: np.ndarray):
     with torch.no_grad():
         outputs = model(image_array)
         preds = torch.sigmoid(outputs) > 0.5
-    return preds.cpu().numpy().tolist()
+    return preds.cpu().numpy().flatten().tolist()
 
-load_model(download_model_from_reqistry(API_CONFIG["model_name"]))
+# loaded_model = load_model(download_model_from_reqistry(API_CONFIG["model_name"]))
+# print(model_inference(loaded_model, torch.Tensor(np.random.rand(1, 3, 224, 224))))

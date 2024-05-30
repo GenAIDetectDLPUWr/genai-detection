@@ -6,7 +6,7 @@ from torch.nn import Module
 import wandb
 from wandb.sdk.wandb_run import Run
 
-from genai_utils.config import WANDB_CONFIG, TRAIN_CONFIG
+from utils.config import WANDB_CONFIG, TRAIN_CONFIG
 
 def create_run(config: dict) -> Run:
     """
