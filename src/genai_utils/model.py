@@ -11,15 +11,6 @@ from torchvision import models, transforms
 from genai_utils.training import create_run
 from genai_utils.config import API_CONFIG
 
-class GenAIDetectorModel(models.resnet.ResNet):
-    def __init__(self, weights_path: str = None):
-        super(GenAIDetectorModel, self).__init__()
-        for param in self.parameters():
-            param.requires_grad = False
-        num_features = self.fc.in_features
-        self.fc = torch.nn.Linear(num_features, 1)
-        if weights_path:
-            self.load_state_dict(torch.load(weights_path))
 
 def define_model():
     model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
