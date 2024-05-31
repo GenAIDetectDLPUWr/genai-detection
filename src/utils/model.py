@@ -61,10 +61,16 @@ def load_model(model_path: str):
 
 def model_inference(model, image_array: np.ndarray):
     model.eval()
+    input_image = model_preprocessing(image_array)
     with torch.no_grad():
-        outputs = model(image_array)
+        outputs = model(input_image.unsqueeze(0))
         preds = torch.sigmoid(outputs) > 0.5
     return preds.cpu().numpy().flatten().tolist()
 
-# loaded_model = load_model(download_model_from_reqistry(API_CONFIG["model_name"]))
-# print(model_inference(loaded_model, torch.Tensor(np.random.rand(1, 3, 224, 224))))
+def model_preprocessing(image_array: torch.Tensor):
+    preprocess = transforms.Compose([
+        transforms.ToPILImage(),
+        transforms.Resize((256, 256)),
+        transforms.ToTensor(),
+    ])
+    return preprocess(image_array)

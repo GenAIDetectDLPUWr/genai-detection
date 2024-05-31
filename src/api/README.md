@@ -14,7 +14,7 @@ First, you need to install Docker. The installation process varies depending on 
 Once Docker is installed, navigate to the directory containing your FastAPI application and Dockerfile. You can then build your Docker image using the following command:
 
 ```bash
-docker build -t my-fastapi-app .
+docker build -f environments/Dockerfile.api -t my-fastapi-app .
 ```
 
 Replace `my-fastapi-app` with the name you want for your Docker image.
