@@ -48,7 +48,6 @@ docker run -v ./data:/data --env WANDB_API_KEY=<WANDB_API_KEY> deep-learning-pro
 # evaluation
 docker run -v ./data:/data --env WANDB_API_KEY=<WANDB_API_KEY> deep-learning-project --pipeline evaluation
 ```
-TODO: add inference pipline run command
 
 ### Kedro 
 
