@@ -14,7 +14,8 @@ description = "Detection of AI Generated Images"
 packages = [
     {include = "genai_detection", from = "src"},
     {include = "utils", from = "src"},
-    {include = "api", from = "src"}
+    {include = "api", from = "src"},
+    {include = "frontend", from = "src"}
 ]
 authors = ["Paweł Grabiński"]
 license = "MIT"
