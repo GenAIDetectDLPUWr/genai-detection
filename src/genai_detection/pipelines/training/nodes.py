@@ -5,7 +5,7 @@ import torch
 
 from genai_detection.settings import TRAIN_CONFIG
 from utils.training import create_run, log_metrics, save_checkpoint
-from utils.training import create_run
+from utils.model import define_model
 
 from datetime import datetime
 
@@ -42,11 +42,7 @@ load_config_node = node(
 
 def get_model():
     """Get a pre-trained ResNet18 model with the final layer replaced for binary classification."""
-    model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
-    for param in model.parameters():
-        param.requires_grad = False
-    num_features = model.fc.in_features
-    model.fc = torch.nn.Linear(num_features, 1)
+    model = define_model()
     return model
 
 

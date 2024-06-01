@@ -29,3 +29,7 @@ evaluation_config:
   num_workers: 4
   model_name: "resnet18"
   model_path: "models"
+
+api_config:
+  model_name: "resnet18"
+  model_path: "models"

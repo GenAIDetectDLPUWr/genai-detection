@@ -24,12 +24,19 @@ Docker is required to run the project. To build the Docker image:
 Clone the repo and run the following command:
 
 ```
-docker build -t deep-learning-project .
+docker build -f enivronments/Dockerfile.kedro -t deep-learning-project .
 ```
 or just run:
 ```
 docker pull kabanosk/deep-learning-project
 ```
+
+There are other Dockerfiles in the `environments` directory that can be used to build images for different purposes.
+* `Dockerfile.kedro` - image with entrypoint `kedro run`
+* `Dockerfile.api` - image with api and gradio dependecy group
+* `Dockerfile.test` - image with test dependecy group
+* `Dockerfile` - image with dev dependecy group
+
 
 ## Usage
 To run the training and evaluation pipeline, you need to run the Docker container with the following command
