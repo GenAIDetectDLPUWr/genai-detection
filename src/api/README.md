@@ -40,13 +40,16 @@ uvicorn api.api:app
 
 ## Test the Inference Endpoint
 
-To use the inference endpoint, you can send a POST request with an image file. Here's an example using curl:
+To use the inference endpoint, you can send a POST request with an base64-encoded image file. We prepared the script `api_sample_request.py` to help you test the endpoint. You can run the script using the following command:
 
 ```bash
-curl -X POST -F "file=@/path/to/your/image.jpg" http://localhost/inference
+bash api_sample_request.py path/to/image.ext
 ```
+For example, you can run the following command to test the endpoint with the images from our README in `imgs/` catalogue:
 
-TODO: change the call above as the api takes a base64-encoded image.
+```bash
+bash api_sample_request.py imgs/4Q91mZx8dyJfTkuBOokf--4--ojjjo.jpg
+```
 
 ## API Endpoints
 
