@@ -15,7 +15,13 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
+      - name: Copy the 🤗 Spaces Dockerfile to the root directory of the repository
+        run: cp -f environments/Dockerfile.space ./Dockerfile
+      - name: Change branch
+        run: git checkout -b deploy
+      - name: Commit Dockerfile.space
+        run: git add Dockerfile
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.PGRABINSKI_HFSPACES_TOKEN }}
-        run: git push https://PGrabinski:$HF_TOKEN@huggingface.co/spaces/PGrabinski/genAI-detection main
+        run: git push https://PGrabinski:$HF_TOKEN@huggingface.co/spaces/PGrabinski/genAI-detection deploy:main
