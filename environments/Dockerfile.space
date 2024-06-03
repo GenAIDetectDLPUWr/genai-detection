@@ -1,0 +1,44 @@
+FROM python:3.10-bookworm
+
+RUN apt-get -y update && apt-get -y install git
+
+RUN pip install --upgrade pip
+
+ENV PYTHONFAULTHANDLER=1 \
+  PYTHONUNBUFFERED=1 \
+  PYTHONHASHSEED=random \
+  PIP_NO_CACHE_DIR=off \
+  PIP_DISABLE_PIP_VERSION_CHECK=on \
+  PIP_DEFAULT_TIMEOUT=100 \
+  # Poetry's configuration:
+  POETRY_NO_INTERACTION=1 \
+  POETRY_VIRTUALENVS_CREATE=false \
+  POETRY_CACHE_DIR='/var/cache/pypoetry' \
+  POETRY_HOME='/usr/local' \
+  POETRY_VERSION=1.7.1
+
+RUN useradd -m -u 1000 user
+
+USER user
+
+ENV HOME=/home/user \
+	PATH=/home/user/.local/bin:$PATH
+
+WORKDIR $HOME/app
+
+RUN pip install --no-cache-dir --upgrade pip
+
+RUN curl -sSL https://install.python-poetry.org | python3 -
+
+COPY --chown=user poetry.lock pyproject.toml $HOME/app/
+
+RUN poetry install --with api --with gradio
+
+COPY --chown=user . $HOME/app/
+
+COPY --chown=user ./space/README.md $HOME/app/
+
+RUN --mount=type=secret,id=WANDB_KEY,mode=0444,required=true \
+  export "WANDB_KEY=$(cat /run/secrets/WANDB_KEY)"
+
+ENTRYPOINT [ "bash", "scripts/app.sh" ]
