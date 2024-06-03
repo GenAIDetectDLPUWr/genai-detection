@@ -29,5 +29,5 @@ def run_api():
 api_service = threading.Thread(target=run_api)
 api_service.start()
 
-demo.launch()
+demo.launch(server_name="0.0.0.0")
 
