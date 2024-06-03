@@ -20,7 +20,9 @@ jobs:
       - name: Change branch
         run: git checkout -b deploy
       - name: Commit Dockerfile.space
-        run: git add Dockerfile
+        run: |
+          git add Dockerfile
+          git commit -m "Deploy to Hugging Face Spaces"
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.PGRABINSKI_HFSPACES_TOKEN }}
