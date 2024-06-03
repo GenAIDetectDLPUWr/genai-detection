@@ -22,6 +22,8 @@ jobs:
       - name: Commit Dockerfile.space
         run: |
           git add Dockerfile
+          git config --global user.email "githubaction@GenAIDetectDLPUWr.com"
+          git config --global user.name "GitHub Actions"
           git commit -m "Deploy to Hugging Face Spaces"
       - name: Push to hub
         env:
