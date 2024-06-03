@@ -23,14 +23,11 @@ demo = gr.Interface(
     outputs=gr.Textbox(label="Classification"),
 )
 
-def run_frontend():
-    demo.launch()
-
-frontend_service = threading.Thread(target=run_frontend)
-frontend_service.start()
-
 def run_api():
     uvicorn.run("api.api:app", host="127.0.0.1", port=8000)
 
 api_service = threading.Thread(target=run_api)
 api_service.start()
+
+demo.launch()
+
