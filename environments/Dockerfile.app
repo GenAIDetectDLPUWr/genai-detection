@@ -25,4 +25,4 @@ RUN poetry install --with api --with gradio
 
 COPY . .
 
-ENTRYPOINT [ "bash", "scripts/app.sh" ]
+ENTRYPOINT [ "python", "-m", "frontend.frontend" ]
