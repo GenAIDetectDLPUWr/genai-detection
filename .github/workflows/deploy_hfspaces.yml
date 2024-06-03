@@ -1,7 +1,6 @@
 name: Deploy to Hugging Face Spaces
 
 on:
-  pull_request: 
   push:
     branches:
       - main
