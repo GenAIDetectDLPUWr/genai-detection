@@ -23,4 +23,4 @@ RUN poetry install --with api --with gradio
 
 EXPOSE 7860
 
-ENTRYPOINT [ "poetry", "run", "bash", "scripts/app.sh" ]
+ENTRYPOINT [ "python", "-m", "frontend.frontend" ]
