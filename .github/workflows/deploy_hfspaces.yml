@@ -1,6 +1,7 @@
 name: Deploy to Hugging Face Spaces
 
 on:
+  pull_request: 
   push:
     branches:
       - main
@@ -10,7 +11,7 @@ jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           lfs: true
