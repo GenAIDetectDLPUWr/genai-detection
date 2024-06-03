@@ -4,7 +4,7 @@ import base64
 import io
 
 import threading
-import os
+import uvicorn
 
 def encode_image(image):
     img_bytes = io.BytesIO()
@@ -23,15 +23,14 @@ demo = gr.Interface(
     outputs=gr.Textbox(label="Classification"),
 )
 
-def run_api():
-    os.system("uvicorn src.api.app:app")
-
-api_service = threading.Thread(target=run_api)
-api_service.start()
-
-
 def run_frontend():
     demo.launch()
 
 frontend_service = threading.Thread(target=run_frontend)
 frontend_service.start()
+
+def run_api():
+    uvicorn.run("api.api:app", host="127.0.0.1", port=8000)
+
+api_service = threading.Thread(target=run_api)
+api_service.start()
