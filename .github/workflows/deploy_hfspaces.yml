@@ -15,8 +15,6 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
-      - name: Copy the 🤗 Spaces Dockerfile to the root directory of the repository
-        run: cp -f environments/Dockerfile.space ./Dockerfile
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.PGRABINSKI_HFSPACES_TOKEN }}

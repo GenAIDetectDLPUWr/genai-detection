@@ -5,6 +5,7 @@ colorFrom: red
 colorTo: green
 sdk: docker
 pinned: false
+dockerfile: environments/Dockerfile.space
 ---
 
 # gen-ai-detection
