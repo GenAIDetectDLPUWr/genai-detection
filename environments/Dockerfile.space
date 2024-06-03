@@ -28,7 +28,7 @@ WORKDIR $HOME/app
 
 RUN pip install --no-cache-dir --upgrade pip
 
-RUN curl -sSL https://install.python-poetry.org | python3 -
+RUN pip install --no-cache-dir --upgrade --user pip poetry
 
 COPY --chown=user poetry.lock pyproject.toml $HOME/app/
 
