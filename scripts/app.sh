@@ -1,5 +1,4 @@
 #!/bin/bash
-
-uvicorn api.api:app &
+wandb login
 
 python -m frontend.frontend

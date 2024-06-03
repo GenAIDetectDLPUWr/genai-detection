@@ -1,6 +1,7 @@
 name: Deploy to Hugging Face Spaces
 
 on:
+  pull_request: 
   push:
     branches:
       - main
@@ -10,13 +11,21 @@ jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           lfs: true
       - name: Copy the 🤗 Spaces Dockerfile to the root directory of the repository
         run: cp -f environments/Dockerfile.space ./Dockerfile
+      - name: Change branch
+        run: git checkout -b deploy
+      - name: Commit Dockerfile.space
+        run: |
+          git add Dockerfile
+          git config --global user.email "githubaction@GenAIDetectDLPUWr.com"
+          git config --global user.name "GitHub Actions"
+          git commit -m "Deploy to Hugging Face Spaces"
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.PGRABINSKI_HFSPACES_TOKEN }}
-        run: git push https://PGrabinski:$HF_TOKEN@huggingface.co/spaces/PGrabinski/genAI-detection main
+        run: git push --force https://PGrabinski:$HF_TOKEN@huggingface.co/spaces/PGrabinski/genAI-detection deploy:main

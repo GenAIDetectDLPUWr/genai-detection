@@ -3,6 +3,9 @@ import gradio as gr
 import base64
 import io
 
+import threading
+import uvicorn
+
 def encode_image(image):
     img_bytes = io.BytesIO()
     image.save(img_bytes, format='PNG')  # Use the appropriate image format
@@ -20,4 +23,11 @@ demo = gr.Interface(
     outputs=gr.Textbox(label="Classification"),
 )
 
-demo.launch()
+def run_api():
+    uvicorn.run("api.api:app", host="0.0.0.0", port=8000)
+
+api_service = threading.Thread(target=run_api)
+api_service.start()
+
+demo.launch(server_name="0.0.0.0")
+
