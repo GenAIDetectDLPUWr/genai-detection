@@ -12,6 +12,7 @@ conf/**/*credentials*
 data/**
 wandb/
 models/*.pt
+artifacts/**
 # except their sub-folders
 
 # also keep all .gitkeep files

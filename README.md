@@ -1,3 +1,12 @@
+---
+title: GenAI Detection
+emoji: 🖼️
+colorFrom: red
+colorTo: green
+sdk: docker
+pinned: false
+---
+
 # gen-ai-detection
 ## Table of Contents
 1. [Overview](#overview)
